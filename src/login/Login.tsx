@@ -1,8 +1,18 @@
 import * as React from 'react';
 import Btn from '../btn/Btn';
-import { ILoginRequestInfo, ILoginProps } from '../..';
 
-interface ILoginState extends ILoginRequestInfo {}
+export interface ILoginRequestInfo {
+    user: string;
+    password: string;
+    rememberMe?: boolean;
+}
+
+export interface ILoginProps {
+    onLogin?: (ILoginRequestInfo: any) => any;
+    onForgotPassword?: () => any;
+}
+
+export interface ILoginState extends ILoginRequestInfo {}
 
 export default class Login extends React.Component<ILoginProps> {
     readonly state:ILoginState = {

@@ -1,18 +1,21 @@
 {
     "compilerOptions": {
-      "outDir": "./lib",
-      "target": "es6",
+      "outDir": "lib",
+      "target": "es5",
+      "lib": ["es2017", "es7", "es6", "dom"],
       "module": "commonjs",
       "noImplicitAny": true,
       "strictNullChecks": true,
       "removeComments": true,
-      "declaration": false,
+      "declaration": true,
       "sourceMap": true,
       "jsx": "react",
       "typeRoots": [
         "index.d.ts",
         "node_modules/@types"
-      ]
+      ],
+      "strict": true,
+      "esModuleInterop": true
     },
     "include": [
       "./src/**/*.tsx",
