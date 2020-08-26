@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ILoginProps, ILoginRequestInfo } from './ILogin';
 import Btn from '../btn/Btn';
+import { ILoginRequestInfo, ILoginProps } from '../..';
 
 interface ILoginState extends ILoginRequestInfo {}
 
