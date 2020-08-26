@@ -1,12 +1,12 @@
 {
   "name": "austin-generic-react-micro-components",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "prepublish": "tsc",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "build": "rm -rf ./lib && tsc",
     "prepare": "yarn build",
     "test": "jest"
   },
