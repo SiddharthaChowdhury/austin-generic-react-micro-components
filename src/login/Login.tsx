@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Btn from '../btn/Btn';
+import { Btn } from '../btn/Btn';
 
 export interface ILoginRequestInfo {
     user: string;
@@ -14,7 +14,7 @@ export interface ILoginProps {
 
 export interface ILoginState extends ILoginRequestInfo {}
 
-export default class Login extends React.Component<ILoginProps> {
+export class Login extends React.Component<ILoginProps> {
     readonly state:ILoginState = {
         user: '',
         password: '',

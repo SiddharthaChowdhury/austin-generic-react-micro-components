@@ -1,7 +1,21 @@
 import * as React from 'react';
-import { IBtnProps } from './IBtn';
 
-export default class Btn extends React.Component<IBtnProps> {
+export enum IdBtnColor {
+    DANGER,
+    SUCCESS,
+    PRIMARY,
+    SECONDARY,
+    DEFAULT
+}
+
+export interface IBtnProps {
+    text?: string;
+    icon?: any;
+    isDisabled?: boolean;
+    [index: string]: any;
+}
+
+export class Btn extends React.Component<IBtnProps> {
     render () {
         const {isDisabled, text} = this.props;
         return (
