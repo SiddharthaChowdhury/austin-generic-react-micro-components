@@ -10,7 +10,7 @@ export interface ILoginProps {
 }
 export interface ILoginState extends ILoginRequestInfo {
 }
-export default class Login extends React.Component<ILoginProps> {
+export declare class Login extends React.Component<ILoginProps> {
     readonly state: ILoginState;
     render(): JSX.Element;
 }

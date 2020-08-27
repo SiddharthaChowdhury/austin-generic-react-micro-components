@@ -23,7 +23,7 @@ export class Login extends React.Component<ILoginProps> {
     render () {
         const {onForgotPassword, onLogin} = this.props;
         return (
-            <div>
+            <div data-test="login">
                 <input placeholder="Email" type="text" value={this.state.user} onChange={(e: any) => this.setState({user: e.target.value})}/>
                 <input placeholder="Password" type="password" value={this.state.password} onChange={(e: any) => this.setState({password: e.target.value})} />
                 <div>
