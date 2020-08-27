@@ -1,10 +1,7 @@
 import React from "react";
-import Enzyme, {shallow, ShallowWrapper} from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import {getElementByTestAttr} from './testUtils';
 import {Login} from "../src/login/Login";
-
-Enzyme.configure({adapter: new EnzymeAdapter()});
 
 const setup = (props: any = {}, state: any = null) => {
     const wrapper = shallow(<Login {...props}/>);
@@ -35,7 +32,7 @@ describe('Login prop change test', () => {
         const errorMessage = 'Some error found';
         const wrapper = setup({error: errorMessage});
         const element = getElementByTestAttr(wrapper, 'error');
-        
+
         expect(element.length).toBe(1);
         expect(element.text()).toBe(errorMessage);
     })
