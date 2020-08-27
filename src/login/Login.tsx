@@ -8,11 +8,14 @@ export interface ILoginRequestInfo {
 }
 
 export interface ILoginProps {
-    onLogin?: (ILoginRequestInfo: any) => any;
+    onLogin: (ILoginRequestInfo: any) => any;
     onForgotPassword?: () => any;
+    error?: string;
 }
 
-export interface ILoginState extends ILoginRequestInfo {}
+export interface ILoginState extends ILoginRequestInfo {
+    error?: string;
+}
 
 export class Login extends React.Component<ILoginProps> {
     readonly state:ILoginState = {
@@ -24,6 +27,7 @@ export class Login extends React.Component<ILoginProps> {
         const {onForgotPassword, onLogin} = this.props;
         return (
             <div data-test="login">
+                {this.state.error && <div data-test={'error'}>{this.state.error}</div>}
                 <input placeholder="Email" type="text" value={this.state.user} onChange={(e: any) => this.setState({user: e.target.value})}/>
                 <input placeholder="Password" type="password" value={this.state.password} onChange={(e: any) => this.setState({password: e.target.value})} />
                 <div>
@@ -31,12 +35,31 @@ export class Login extends React.Component<ILoginProps> {
                     <small>Remember me here</small>
                 </div>
 
-                <Btn onClick={() => {
-                        if (onLogin) onLogin(this.state); 
-                        return;
-                    }
-                } text={"Login"}/>
+                <Btn data-test={'loginBtn'} onClick={this.handleLoginClicked} text={"Login"}/>
             </div>
         );
+    }
+
+    static getDerivedStateFromProps(newProps: ILoginProps, currentState: ILoginState) {
+        if (newProps.error !== currentState.error) {
+            return {
+                ...currentState,
+                error: newProps.error
+            }
+        }
+        return null;
+    }
+
+    private handleLoginClicked = () => {
+        const {user, password} = this.state;
+        const {onLogin} = this.props;
+
+        // basic validation
+        if(!user || !password || (password && password.length < 6)) {
+            this.setState({error: 'Login failed!'});
+            return;
+        }
+
+        onLogin(this.state); 
     }
 }
