@@ -21,12 +21,14 @@ export class Login extends React.Component<ILoginProps> {
     readonly state:ILoginState = {
         user: '',
         password: '',
-        rememberMe: false
+        rememberMe: false,
+        error: this.props.error
     }
     render () {
         const {onForgotPassword, onLogin} = this.props;
         return (
             <div data-test="login">
+                <div>Login</div>
                 {this.state.error && <div data-test={'error'}>{this.state.error}</div>}
                 <input placeholder="Email" type="text" value={this.state.user} onChange={(e: any) => this.setState({user: e.target.value})}/>
                 <input placeholder="Password" type="password" value={this.state.password} onChange={(e: any) => this.setState({password: e.target.value})} />
@@ -38,16 +40,6 @@ export class Login extends React.Component<ILoginProps> {
                 <Btn data-test={'loginBtn'} onClick={this.handleLoginClicked} text={"Login"}/>
             </div>
         );
-    }
-
-    static getDerivedStateFromProps(newProps: ILoginProps, currentState: ILoginState) {
-        if (newProps.error !== currentState.error) {
-            return {
-                ...currentState,
-                error: newProps.error
-            }
-        }
-        return null;
     }
 
     private handleLoginClicked = () => {

@@ -1,9 +1,9 @@
 import React from "react";
-import {shallow} from 'enzyme';
+import {shallow, ShallowWrapper} from 'enzyme';
 import {getElementByTestAttr} from './testUtils';
 import {Login} from "../src/login/Login";
 
-const setup = (props: any = {}, state: any = null) => {
+const setup = (props: any = {}, state: any = null): ShallowWrapper => {
     const wrapper = shallow(<Login {...props}/>);
     if(state) wrapper.setState({...state})
   
@@ -11,18 +11,22 @@ const setup = (props: any = {}, state: any = null) => {
 }
 
 describe('Login component are rendered correctly', () => {
-    const wrapper = setup();
 
-    it('Login wrapper is loaded', () => {
+    let wrapper: ShallowWrapper;
+    beforeEach(() => {
+        wrapper = setup();
+    })
+
+    test('Login wrapper is loaded', () => {
         expect(getElementByTestAttr(wrapper, 'login').length).toBe(1)
     });
-    it('No error displayed initially', () => {
+    test('No error displayed initially', () => {
         expect(getElementByTestAttr(wrapper, 'error').length).toBe(0)
     });
-    it('Input elements displayed', () => {
+    test('Input elements displayed', () => {
         expect(getElementByTestAttr(wrapper, 'login').find('input').length).toBe(3)
     });
-    it('Login button displayed', () => {
+    test('Login button displayed', () => {
         expect(getElementByTestAttr(wrapper, 'loginBtn').length).toBe(1)
     });
 });
@@ -37,3 +41,47 @@ describe('Login prop change test', () => {
         expect(element.text()).toBe(errorMessage);
     })
 });
+
+describe('Login btn press test', () => {
+
+    test('Login button pressed with no input, expect error', () => {
+        const wrapper: ShallowWrapper = setup();
+
+        expect(wrapper.state('error')).toBeUndefined();
+        expect(wrapper.state('user')).toBe('');
+        expect(wrapper.state('password')).toBe('');
+
+        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+
+        btn.simulate('click');
+
+        expect(wrapper.state('error')).toBeDefined();
+    });
+
+    test('Login button pressed with all input, expect NO error', () => {
+        const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: 'some@user', password: 'password'});
+        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+
+        btn.simulate('click');
+
+        expect(wrapper.state('error')).toBeUndefined();
+    });
+
+    test('Login button pressed with No user, expect error', () => {
+        const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: '', password: 'password'});
+        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+
+        btn.simulate('click');
+
+        expect(wrapper.state('error')).toBeDefined();
+    });
+
+    test('Login button pressed with No password, expect error', () => {
+        const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: 'some@user', password: ''});
+        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+
+        btn.simulate('click');
+
+        expect(wrapper.state('error')).toBeDefined();
+    });
+})
