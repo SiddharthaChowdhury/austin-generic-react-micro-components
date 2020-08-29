@@ -15,13 +15,15 @@ export interface IBtnProps {
     [index: string]: any;
 }
 
-export class Btn extends React.Component<IBtnProps> {
+class Btn extends React.Component<IBtnProps> {
     render () {
-        const {isDisabled, text} = this.props;
+        const {isDisabled, text, ...rest} = this.props;
         return (
-            <button disabled={isDisabled}>
+            <button disabled={isDisabled} {...rest}>
                 {text}
             </button>
         );
     }
 }
+
+export default Btn;

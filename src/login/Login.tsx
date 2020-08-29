@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Btn } from '../btn/Btn';
+import Btn  from '../btn/Btn';
 
 export interface ILoginRequestInfo {
     user: string;
@@ -17,7 +17,7 @@ export interface ILoginState extends ILoginRequestInfo {
     error?: string;
 }
 
-export class Login extends React.Component<ILoginProps> {
+class Login extends React.Component<ILoginProps> {
     readonly state:ILoginState = {
         user: '',
         password: '',
@@ -25,9 +25,8 @@ export class Login extends React.Component<ILoginProps> {
         error: this.props.error
     }
     render () {
-        const {onForgotPassword, onLogin} = this.props;
         return (
-            <div data-test="login">
+            <div data-test="login" className={'container'}>
                 <div>Login</div>
                 {this.state.error && <div data-test={'error'}>{this.state.error}</div>}
                 <input placeholder="Email" type="text" value={this.state.user} onChange={(e: any) => this.setState({user: e.target.value})}/>
@@ -55,3 +54,5 @@ export class Login extends React.Component<ILoginProps> {
         onLogin(this.state); 
     }
 }
+
+export default Login;

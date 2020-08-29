@@ -1,7 +1,7 @@
 import React from "react";
 import {shallow, ShallowWrapper} from 'enzyme';
 import {getElementByTestAttr} from './testUtils';
-import {Login} from "../src/login/Login";
+import Login from "../src/login/Login";
 
 const setup = (props: any = {}, state: any = null): ShallowWrapper => {
     const wrapper = shallow(<Login {...props}/>);

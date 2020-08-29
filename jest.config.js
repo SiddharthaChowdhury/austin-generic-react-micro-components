@@ -3,4 +3,17 @@ module.exports = {
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
+    "testRegex": "/*.test.tsx$",
+    "collectCoverage": true,
+    "coverageReporters": ["lcov"],
+    "coverageDirectory": "test-coverage",
+    "coverageThreshold": {
+      "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+      }
+    },
+    "moduleDirectories": ["node_modules", "src"]
   }
