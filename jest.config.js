@@ -15,5 +15,6 @@ module.exports = {
       "statements": 0
       }
     },
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleDirectories": ["node_modules", "src"],
+    "moduleNameMapper": { "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"}
   }

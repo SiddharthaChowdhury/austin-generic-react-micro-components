@@ -1,0 +1,22 @@
+.input-text2{
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &-text {
+    width: 100%;
+    height: 33px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border-radius: 3px;
+    border: 1px solid silver;
+  }
+
+  &-required {
+    position: absolute;
+    top: -9px;
+    right: -5px;
+    color: red;
+    font-size: 8px;
+  }
+}

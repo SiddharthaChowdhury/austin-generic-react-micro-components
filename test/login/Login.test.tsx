@@ -1,7 +1,7 @@
 import React from "react";
 import {shallow, ShallowWrapper} from 'enzyme';
-import {getElementByTestAttr} from './testUtils';
-import Login from "../src/login/Login";
+import {getElementByTestAttr} from '../testUtils';
+import Login from "../../src/login/Login";
 
 const setup = (props: any = {}, state: any = null): ShallowWrapper => {
     const wrapper = shallow(<Login {...props}/>);
@@ -24,7 +24,7 @@ describe('Login component are rendered correctly', () => {
         expect(getElementByTestAttr(wrapper, 'error').length).toBe(0)
     });
     test('Input elements displayed', () => {
-        expect(getElementByTestAttr(wrapper, 'login').find('input').length).toBe(3)
+        expect(getElementByTestAttr(wrapper, 'input').length).toBe(3)
     });
     test('Login button displayed', () => {
         expect(getElementByTestAttr(wrapper, 'loginBtn').length).toBe(1)
@@ -51,37 +51,65 @@ describe('Login btn press test', () => {
         expect(wrapper.state('user')).toBe('');
         expect(wrapper.state('password')).toBe('');
 
-        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+        const form = getElementByTestAttr(wrapper, 'loginForm');
 
-        btn.simulate('click');
+        form.simulate('submit');
 
         expect(wrapper.state('error')).toBeDefined();
     });
 
     test('Login button pressed with all input, expect NO error', () => {
         const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: 'some@user', password: 'password'});
-        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+        const form = getElementByTestAttr(wrapper, 'loginForm');
 
-        btn.simulate('click');
+        form.simulate('submit');
 
         expect(wrapper.state('error')).toBeUndefined();
     });
 
     test('Login button pressed with No user, expect error', () => {
         const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: '', password: 'password'});
-        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+        const form = getElementByTestAttr(wrapper, 'loginForm');
 
-        btn.simulate('click');
+        form.simulate('submit');
 
         expect(wrapper.state('error')).toBeDefined();
     });
 
     test('Login button pressed with No password, expect error', () => {
         const wrapper: ShallowWrapper = setup({onLogin: () => {}}, {user: 'some@user', password: ''});
-        const btn = getElementByTestAttr(wrapper, 'loginBtn');
+        const form = getElementByTestAttr(wrapper, 'loginForm');
 
-        btn.simulate('click');
+        form.simulate('submit');
 
         expect(wrapper.state('error')).toBeDefined();
     });
 })
+
+describe('Testing loading when display', () => {
+    test('No leading initially', () => {
+        const wrapper = setup({onLogin: () => {}});
+        expect(getElementByTestAttr(wrapper, 'loading').length).toBe(0)
+    })
+
+    test('Always initial loading when btn is pressed', () => {
+        const wrapper = setup({onLogin: () => {}}, {user: 'sidd', password: '12345678', loading: 'Please wait..'});
+        expect(getElementByTestAttr(wrapper, 'loading').length).toBe(1)
+    })
+})
+
+describe('Testing props label options', () => {
+    test('Correct heading', () => {
+        const label = 'Please login';
+        const wrapper = setup({onLogin: () => {}, options: {formHeadingLabel: label}});
+
+        expect(getElementByTestAttr(wrapper, 'formHeadingLabel').text()).toBe(label)
+    })
+
+    test('Correct heading', () => {
+        const label = 'Please login';
+        const wrapper = setup({onLogin: () => {}, options: {formHeadingLabel: label}});
+
+        expect(getElementByTestAttr(wrapper, 'formHeadingLabel').text()).toBe(label)
+    })
+});

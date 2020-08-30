@@ -5,3 +5,4 @@ test
 */**/setupTests.ts
 
 test-coverage
+__mocks__

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/btn/Btn.tsx</title>
+    <title>Code coverage report for src/text/InputText.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/btn</a> Btn.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/text</a> InputText.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -93,9 +93,26 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,20 +124,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,42 +134,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import './btn.scss';
-import {utilBtn} from "./utilBtn";
-import { IdBtnColor } from './IdBtnColor';
-interface IBtnProps {
-    text?: string;
-    submitType?: boolean; 
+import './inputText.scss';
+&nbsp;
+interface IInputText2Props {
+    value?: string;
+    className?: string;
+    // help?: IdHelp;
+    // popupAlign?: IdPopupAlign;
     isDisabled?: boolean;
-    color?: IdBtnColor;
-    solid?: boolean;
-    icon?: any;
-    href?: string;
-    onClick?: any;
-    [index: string]: any;
+    isRequired?: boolean;
+    style?: React.CSSProperties;
+    helpIcon?: any;
+    onChange?(e: any): void;
+    [key: string]: any;
 }
 &nbsp;
-const Btn: React.FC&lt;IBtnProps&gt; = (props) =&gt; {
-    const {text, submitType, isDisabled, color, solid, className, icon, ...rest} = props;
+const InputText: React.FC&lt;IInputText2Props&gt; = (props) =&gt; {
+    const {value, className, help, isDisabled, isRequired, popupAlign, onChange, style, ...rest} = props;
 &nbsp;
-    const colorClass = utilBtn.getColorClass(color, solid);
-    const classes = className ? <span class="branch-0 cbranch-no" title="branch not covered" >className + ` ${colorClass}` :</span> colorClass;
+    // const getHelp = () =&gt; {
+    //     return (
+    //         &lt;HelpPopup
+    //             trigger={&lt;InputHelpIcon/&gt;}
+    //             content={help!}
+    //             align={popupAlign}
+    //         /&gt;
+    //     );
+    // };
 &nbsp;
     return (
-        &lt;button type={submitType ? <span class="branch-0 cbranch-no" title="branch not covered" >'submit':</span> 'button'} className={`${isDisabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'disabled':</span> ''} ${classes}`} {...rest} data-test="btn"&gt;
-            {icon &amp;&amp; &lt;span className={'btnIcon'}&gt;{icon}&lt;/span&gt;}
-            {(text &amp;&amp; icon) &amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >            &lt;span style={{marginLeft: '6px'}} className={'btnText'}&gt;{text}&lt;/span&gt;</span>
-            }
-            {(text &amp;&amp; !icon) &amp;&amp;
-            &lt;span className={'btnText'}&gt;{text}&lt;/span&gt;
-            }
-        &lt;/button&gt;
+        &lt;div className={'input-text2'} style={style} data-test={'inputText'}&gt;
+            {isRequired &amp;&amp; &lt;span data-test={'important'} className={'input-text2-required'}&gt;*&lt;/span&gt;}
+            &lt;input disabled={!!isDisabled} type={'text'} {...rest} onChange={onChange} value={value || ''} className={`input-text2-text ${className}`}/&gt;
+            {/* {help &amp;&amp; getHelp()} */}
+        &lt;/div&gt;
     )
 };
 &nbsp;
-&nbsp;
-export default Btn;</pre></td></tr></table></pre>
+export default InputText;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

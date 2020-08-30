@@ -1,4 +1,5 @@
-import sass from 'rollup-plugin-sass';
+// import sass from 'rollup-plugin-sass';
+import postcss from "rollup-plugin-postcss";
 import typescript from 'rollup-plugin-typescript2';
 
 import pkg from './package.json';
@@ -15,7 +16,7 @@ export default {
       }
     ],
     plugins: [
-      sass({ insert: true }),
+      postcss(),
       typescript({ objectHashIgnoreUnknownHack: false })
     ],
     external: ['react', 'react-dom']

@@ -1,0 +1,128 @@
+@import "../variables.scss";
+.btn {
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+
+    &.disabled {
+        cursor: not-allowed;
+        background-color: #888888;
+        border: 1px solid #888888;
+        color: #f1f1f1;
+        pointer-events: none;
+
+        &:hover {
+            background-color: #f1f1f1;
+            color: #888888;
+        }
+    }
+}
+
+.btnIcon{
+    margin: auto 0 !important;
+}
+
+.btnGreen {
+    background-color: #1aaa55;
+    border: 1px solid #168f48;
+    color: #fff;
+    &:hover{
+        background-color: #168f48
+    }
+}
+.btnGreenLine {
+    border: 1px solid #168f48;
+    color: #168f48;
+    background-color: #fff;
+    &:hover{
+        background-color: #1aaa55;
+        color: #fff;
+    }
+}
+
+.btnRed {
+    background-color: #db3b21;
+    border: 1px solid #db3b21;
+    color: #fff;
+    &:hover{
+        background-color: #b31901;
+    }
+}
+.btnRedLine {
+    border: 1px solid #db3b21;
+    color: #db3b21;
+    background-color: #fff;
+    &:hover{
+        background-color: #db3b21;
+        color: #fff;
+    }
+}
+
+.btnBlue {
+    background-color: #1f78d1;
+    border: 1px solid #1f78d1;
+    color: #fff;
+    &:hover{
+        background-color: #005db9;
+        color: #fff !important;
+    }
+}
+.btnBlueLine {
+    border: 1px solid #1f78d1;
+    color: #1f78d1;
+    background-color: #fff;
+    &:hover{
+        background-color: #1f78d1;
+        color: #fff !important;
+    }
+}
+
+.btnOrange {
+    background-color: #fc9403;
+    border: 1px solid #fc8803;
+    color: #fff;
+
+    .btnText {
+        &:hover {
+            color: #fff !important;
+        }
+    }
+    &:hover{
+        background-color: #fc8803;
+    }
+}
+.btnOrangeLine {
+    border: 1px solid #fc9403;
+    color: #fc9403;
+    background-color: #fff;
+    &:hover{
+        background-color: #fc9403;
+        color: #fff;
+    }
+}
+
+.btnDefault {
+    border: 1px solid #dfdfdf;
+    color: #6c757d;
+    cursor: pointer;
+}
+.btnDefaultLine {
+    border: 1px solid #dfdfdf;
+    color: #6c757d;
+    background-color: #fff;
+    &:hover{
+        background-color: #f8f9fa;
+        color: #000;
+    }
+}
+
+.popUpMenu {
+    background: $PopupBackGround;
+    border: 1px solid $PopupBorder;
+    padding: 15px;
+    border-radius: 3px;
+}

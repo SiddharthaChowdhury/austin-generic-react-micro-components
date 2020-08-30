@@ -1,4 +1,16 @@
-import Btn, {IdBtnColor, IBtnProps} from "./btn/Btn";
-import Login , {ILoginRequestInfo, ILoginProps} from "./login/Login";
+import Btn from "./btn/Btn";
+import {IdBtnColor} from "./btn/IdBtnColor";
+import Login , {ILoginRequestInfo, ILoginProps, ILoginPropOptionsInfo} from "./login/Login";
+import InputText from "./text/InputText";
 
-export {IdBtnColor, IBtnProps, Btn, ILoginRequestInfo, ILoginProps, Login}
+export {
+    InputText, 
+    
+    IdBtnColor, 
+    Btn, 
+    
+    ILoginRequestInfo, 
+    ILoginPropOptionsInfo,
+    ILoginProps, 
+    Login
+}
