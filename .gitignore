@@ -106,3 +106,5 @@ dist
 dist
 
 lib
+
+test-coverage
