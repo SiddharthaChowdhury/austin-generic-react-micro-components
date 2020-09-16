@@ -1,7 +1,10 @@
 export interface IDropdownOption {
     label: string;
     value?: any;
-    dataAttr?: IDropdownOptionDataAttr[];
+
+    color?: string[]; // [bgColor, color]
+    avatar?: string; // a valid src (url)
+    dataAttr?: IDropdownOptionDataAttr[]; // to pass in more data
 }
 
 export interface IDropdownOptionDataAttr {

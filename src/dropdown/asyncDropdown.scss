@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .asyncDrpDwn821 {
     color: #2e2e2e;
     display: flex;
@@ -56,8 +58,8 @@
     &__clearTextIcon {
         position: absolute;
         right: 8px;
-        top: 8px;
-        font-size: 14px;
+        top: 2px;
+        font-size: 17px;
         color: grey;
         cursor: pointer;
 
@@ -100,7 +102,7 @@
 }
 
 .asyncDrpDwn821_Overlay{
-    z-index: 4;
+    z-index: $ZindexDropdownOverlay;
     position: fixed;
     top: 0;
     left: 0;

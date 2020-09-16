@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
 import "./asyncDropdown.scss";
-import debounce from "lodash.debounce";
 import { IDropdownOption } from "./IDropdown";
 import Avatar from "../avatar/Avatar";
 import Loading from "../loading/Loading";
+import { debounce } from "../util/utilBrowser";
 
 interface IAsyncDropdownOwnState {
     typedValue: string;
@@ -21,12 +21,12 @@ interface IAsyncDropdownProps {
     isMulti?: boolean;
     hideMultiTags?: boolean;
     isDisabled?: boolean;
+    debouneTime?: number;
 }
 
 class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownOwnState> {
     readonly state: IAsyncDropdownOwnState = { typedValue: '', stateSelected: this.props.selected};
 
-    private refMainContainer = React.createRef<any>();
     private refSuggestionContainer = React.createRef<any>();
     private refInput = React.createRef<any>();
     
@@ -35,7 +35,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
     private timerHandleSafeSuggestionClose: number | null = null;
     private debouncedInput = debounce(() => {
         this.triggerSearch();
-    }, 260);
+    }, this.props.debouneTime || 260);
 
     render() {
         const {typedValue, stateSelected, open, newOptions} = this.state;
@@ -47,10 +47,10 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
         const isNoOptions = (!newOptions || (newOptions && newOptions.length === 0)) && (!initialOptions || (initialOptions && initialOptions.length === 0));
 
         return (
-            <div className={'asyncDrpDwn821'} ref={this.refMainContainer}>
+            <div className={'asyncDrpDwn821'}>
                 {((stateSelected && stateSelected.length > 0) && isMulti) &&
                 <div className={'asyncDrpDwn821__multiTagContainer'}>
-                    {stateSelected.map((sItem: IDropdownOption | any, _key: number) => {
+                    {stateSelected.map((sItem: IDropdownOption, _key: number) => {
                         return (
                             <div
                                 title={`REMOVE - ${sItem.label}`}
@@ -79,18 +79,17 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                 }
 
                 <input type={'text'} 
+                    ref={this.refInput}
                     title={isNoOptions ? 'No items': ''}
                     className={'asyncDrpDwn821__input'} 
                     value={typedValue} 
                     onChange={this.handleInputChange}
                     onKeyUp={() => this.debouncedInput()}
-                    ref={this.refInput}
                     placeholder={pholder}
                     onClick={this.handleInputBoxClick}
                     disabled={!!isDisabled}
                     style={isNoOptions ? {backgroundColor: '#eeeeee'} : {}}
                 />
-
                 {typedValue && 
                     <span className={'asyncDrpDwn821__clearTextIcon'} 
                         onClick={() => {
@@ -257,13 +256,11 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                 return [];
             }                                                       
             return uniqueList.map((item: IDropdownOption, _key: number) => {
-                const {dataAttr, label} = item;
-                const avatar = (dataAttr && dataAttr.length > 0 ) 
-                                ? dataAttr.find((attrs: any) => attrs.attr === "avatar")
-                                : null;
+                const {label, avatar} = item;
+
                 return (
                     <div key={_key} className={'asyncDrpDwn821__suggestions--item'} onClick={() => handleSuggestionItemClick(item)}>
-                        {avatar && <Avatar src={avatar.value} height={17}/>}
+                        {avatar && <Avatar src={avatar} height={17}/>}
                         <div className={'asyncDrpDwn821__suggestions--item-label'}>{label}</div>
                     </div>
                 );

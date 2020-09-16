@@ -10,6 +10,7 @@
 ## To publish
 - add entry to index.ts (if new feature)
 - update version number
+- yarn build
 - yarn coverage (to update the coverage before publish)
 - git push
 - npm publish

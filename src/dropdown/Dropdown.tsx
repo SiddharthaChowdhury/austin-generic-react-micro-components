@@ -18,6 +18,7 @@ interface IDropdownProps {
     placeholder?: string;
     isMulti?: boolean;
     isDisabled?: boolean;
+    debouneTime?: number;
 }
 
 class Dropdown extends React.Component<IDropdownProps, IDropdownOwnState> {
@@ -25,11 +26,10 @@ class Dropdown extends React.Component<IDropdownProps, IDropdownOwnState> {
 
     private promiseOptions = (inputValue: string = ''): Promise<IDropdownOption[]> => {
         const {options} = this.props;
-        return new Promise<IDropdownOption[]>((resolve: any, reject: any) => {
+        return new Promise<IDropdownOption[]>((resolve: any) => {
             if(options.length === 0) {
                 resolve([])
             }
-
 
             const filtered: IDropdownOption[] = options.filter((item: IDropdownOption) => {
                 return this.searchPattern(inputValue, item.label);
