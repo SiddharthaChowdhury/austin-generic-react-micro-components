@@ -15,7 +15,7 @@ class UtilBtn {
             case IdBtnColor.RED:
                 return classNames += solid ? 'btnRed' : 'btnRedLine';
             default:
-                return classNames += solid ? 'btnDefault' : 'btnDefaultLine';
+                return classNames += 'btnDefault';
         }
     }
 }

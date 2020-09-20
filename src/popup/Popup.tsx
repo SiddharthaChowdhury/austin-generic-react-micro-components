@@ -38,7 +38,14 @@ export class Popup extends React.Component<IPopupProps> {
 
         return (
             <>
-                <span className={'popup-trigger-c'} ref={this.triggerRef} onClick={this.handleOnTriggerClicks}>{trigger}</span>
+                <span 
+                    className={'popup-trigger-c'} 
+                    ref={this.triggerRef} 
+                    onClick={this.handleOnTriggerClicks} 
+                    data-test={'popup-trigger'}
+                >
+                    {trigger}
+                </span>
                 {open && this.popupContent()}
                 {open && this.calculateCorrectPopupPosition()}
             </>
@@ -102,18 +109,6 @@ export class Popup extends React.Component<IPopupProps> {
     };
 
     private handleOnTriggerClicks = () => {
-        // const diam: DOMRect = this.triggerRef.current.getBoundingClientRect();
-        // /*
-        //     bottom: 213.1999969482422
-        //     height: 28
-        //     left: 190.6374969482422
-        //     right: 222.2999973297119
-        //     top: 185.1999969482422
-        //     width: 31.662500381469727
-        //     x: 190.6374969482422 (no IE)
-        //     y: 185.1999969482422 (no IE)
-        // * */
-        // console.log('diam', diam)
         this.setState({ open: !this.state.open });
     };
 

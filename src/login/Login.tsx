@@ -17,6 +17,7 @@ export interface ILoginPropOptionsInfo {
     forgotPassLabel?: string;
     btnLabel?: string;
     loadingMsg?: string;
+    btnStyle?: React.CSSProperties;
 }
 
 export interface ILoginProps {
@@ -101,6 +102,7 @@ class Login extends React.Component<ILoginProps> {
                                 text={options?.btnLabel || 'Login'}
                                 color={IdBtnColor.BLUE}
                                 isDisabled={!!this.state.loading}
+                                style={options?.btnStyle}
                             />
 
                             {onForgotPassword && <a className={'forgotPasswordBtn'} onClick={onForgotPassword}>Forgot password?</a>}
