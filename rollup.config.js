@@ -1,6 +1,8 @@
 // import sass from 'rollup-plugin-sass';
 import postcss from "rollup-plugin-postcss";
 import typescript from 'rollup-plugin-typescript2';
+import commonjs from 'rollup-plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import pkg from './package.json';
 
@@ -16,6 +18,11 @@ export default {
       }
     ],
     plugins: [
+      nodeResolve({
+        dedupe: [ 'react', 'react-dom' ],
+        jsnext: true
+      }),
+      commonjs(),
       postcss(),
       typescript({ objectHashIgnoreUnknownHack: false }),
     ],
