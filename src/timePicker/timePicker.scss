@@ -10,6 +10,11 @@
         width: 30px;
         text-align: center;
         background: #fff;
+        cursor: pointer;
+
+        &--label {
+            font-size: 12px;
+        }
 
         &--choose {
             position: absolute;
@@ -52,4 +57,24 @@
             }
         }
     }
+
+    &__divider::before {
+        content: ':';
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        animation: blinker 1s linear infinite;
+    }
+
+    &__ampm {
+        display: flex;
+        align-items: center;
+    }
 }
+
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+  

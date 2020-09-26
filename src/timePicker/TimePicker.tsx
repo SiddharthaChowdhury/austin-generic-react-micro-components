@@ -114,44 +114,44 @@ class TimePicker extends React.Component<ITimePickerProps> {
 
         return(
             <div className={'timePicker'}>
-                <div className={'timePicker__group timePicker__hh'}>
+                <div className={'timePicker__group timePicker__hh'} onClick={() => this.toggleChoose('hh')}>
                     {showLabels && <div className={'timePicker__group--label'}>HH</div>}
                     {choose.hh 
                         ? this.getChooseHHMMSS('hh') 
-                        : <div className={'timePicker__group--disp'} onClick={() => this.toggleChoose('hh')}>{hh}</div>
+                        : <div className={'timePicker__group--disp'}>{hh}</div>
                     }
                     
                 </div>
 
                 {mm &&
                     <>
-                        <span className={'timePicker__divider'}>:</span>
-                        <div className={'timePicker__group timePicker__mm'}>
+                        <span className={'timePicker__divider'}/>
+                        <div className={'timePicker__group timePicker__mm'} onClick={() => this.toggleChoose('mm')}>
                             {showLabels && <div className={'timePicker__group--label'}>MM</div>}
                             {choose.mm
                                 ? this.getChooseHHMMSS('mm')
-                                : <div className={'timePicker__group--disp'} onClick={() => this.toggleChoose('mm')}>{mm}</div>
+                                : <div className={'timePicker__group--disp'}>{mm}</div>
                             }           
                         </div>
                     </>
                 }
                 {ss &&
                     <>
-                        <span className={'timePicker__divider'}>:</span>
-                        <div className={'timePicker__group timePicker__ss'}>
+                        <span className={'timePicker__divider'}/>
+                        <div className={'timePicker__group timePicker__ss'} onClick={() => this.toggleChoose('ss')}>
                             {showLabels && <div className={'timePicker__group--label'}>SS</div>}
                             {choose.ss
                                 ? this.getChooseHHMMSS('ss')
-                                : <div className={'timePicker__group--disp'} onClick={() => this.toggleChoose('ss')}>{ss}</div>
+                                : <div className={'timePicker__group--disp'}>{ss}</div>
                             }
                         </div>
                     </>
                 }
                 {AmPm &&
-                    <div className={'timePicker__group timePicker__ampm'}>
+                    <div className={'timePicker__group timePicker__ampm'} onClick={() => this.toggleChoose('ampm')}>
                         {choose.ampm
                             ? this.getChooseAMPM()
-                            : <div className={'timePicker__group--disp'} onClick={() => this.toggleChoose('ampm')}>{AmPm}</div> 
+                            : <div className={'timePicker__group--disp'}>{AmPm}</div> 
                         }
                     </div>
                 }
