@@ -45,7 +45,7 @@ describe('Testing utilBtn', () => {
         expect(utilBtn).toBeDefined();
     })
     test('utilBtn should return correct DEFAULT color class', () => {
-        expect(utilBtn.getColorClass()).toEqual('btn btnDefaultLine');
+        expect(utilBtn.getColorClass()).toEqual('btn btnDefault');
         expect(utilBtn.getColorClass(undefined, true)).toEqual('btn btnDefault');
     })
     test('utilBtn should return correct RED color class', () => {
