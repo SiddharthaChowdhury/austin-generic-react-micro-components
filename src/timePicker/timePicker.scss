@@ -13,7 +13,7 @@
         cursor: pointer;
 
         &--label {
-            font-size: 12px;
+            font-size: 11px;
         }
 
         &--choose {
@@ -58,11 +58,13 @@
         }
     }
 
+    &__divider {
+        display: flex;
+        align-items: flex-end;
+        font-weight: 700;
+    }
     &__divider::before {
         content: ':';
-        display: flex;
-        align-items: center;
-        font-weight: 700;
         animation: blinker 1s step-end infinite;
     }
 

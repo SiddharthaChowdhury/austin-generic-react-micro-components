@@ -13,7 +13,7 @@ interface ITimePickerProps {
         - null - that unit will not be shown
         - Note hh cannot be null, 
     */
-    onChange?: (newTime: string) => void;
+    onChange?: (newTime: Array<string | null>) => void;
     ampm?: boolean; // default<false>: 24 hr clock 
     showLabels?: boolean; // default<false>
     optionCloseText?: string;
@@ -113,7 +113,7 @@ class TimePicker extends React.Component<ITimePickerProps> {
         const [hh, mm, ss, AmPm] = timeArr;
 
         return(
-            <div className={'timePicker'}>
+            <div className={'timePicker'} data-test={'timePicker'}>
                 <div className={'timePicker__group timePicker__hh'} onClick={() => this.toggleChoose('hh')}>
                     {showLabels && <div className={'timePicker__group--label'}>HH</div>}
                     {choose.hh 
@@ -193,8 +193,9 @@ class TimePicker extends React.Component<ITimePickerProps> {
                         if(unit === 'ss')
                             timeArr[2] = formattedNumber;
 
-                        this.setState({timeArr: [...timeArr]})
-                        this.toggleChoose(unit)
+                        this.setState({timeArr: [...timeArr]});
+                        this.toggleChoose(unit);
+                        this.emitNewTime();
                     }}
                 >{formattedNumber}</li>
             )
@@ -217,7 +218,8 @@ class TimePicker extends React.Component<ITimePickerProps> {
                 timeArr[3] = val;
 
             this.setState({timeArr: [...timeArr]})
-            this.toggleChoose('ampm')
+            this.toggleChoose('ampm');
+            this.emitNewTime();
         }
 
         return (
@@ -226,11 +228,20 @@ class TimePicker extends React.Component<ITimePickerProps> {
                     {this.props.optionCloseText || 'X'}
                 </span>
                 <ul className={`timePicker__group--choose--ul timePicker__group--choose--ampm`}>
-                    <li className={'timePicker__group--choose--ul-option'} onClick={() => handleClick('am')}>AM</li>
-                    <li className={'timePicker__group--choose--ul-option'} onClick={() => handleClick('pm')}>PM</li>
+                    <li className={'timePicker__group--choose--ul-option'} onClick={() => handleClick('am')}>am</li>
+                    <li className={'timePicker__group--choose--ul-option'} onClick={() => handleClick('pm')}>pm</li>
                 </ul>
             </div>
         );
+    }
+
+    private emitNewTime = () => {
+        const {onChange} = this.props;
+        if(onChange) {
+            const {timeArr} = this.state;
+
+            onChange(timeArr || [])
+        }
     }
 }
 
