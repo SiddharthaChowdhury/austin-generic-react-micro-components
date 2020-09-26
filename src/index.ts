@@ -8,6 +8,7 @@ import {Popup, IPopupProps} from "./popup/Popup";
 import {IDropdownOption, IDropdownOptionDataAttr} from "./dropdown/IDropdown";
 import Dropdown from "./dropdown/Dropdown";
 import AsyncDropdown from "./dropdown/AsyncDropdown";
+import TimePicker from "./timePicker/TimePicker";
 
 export {
     InputText, 
@@ -29,5 +30,7 @@ export {
     IDropdownOption,
     IDropdownOptionDataAttr,
     Dropdown,
-    AsyncDropdown
+    AsyncDropdown,
+
+    TimePicker,
 }
