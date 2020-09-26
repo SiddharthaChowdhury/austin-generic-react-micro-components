@@ -63,7 +63,7 @@
         display: flex;
         align-items: center;
         font-weight: 700;
-        animation: blinker 1s linear infinite;
+        animation: blinker 1s step-end infinite;
     }
 
     &__ampm {
