@@ -14,4 +14,3 @@
 - yarn coverage (to update the coverage before publish)
 - git push
 - npm publish
-

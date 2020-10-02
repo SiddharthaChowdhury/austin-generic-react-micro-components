@@ -23,13 +23,14 @@ export interface ILoginPropOptionsInfo {
 export interface ILoginProps {
     onLogin: (ILoginRequestInfo: any) => any;
     onForgotPassword?: () => any;
-    error?: string;
+    error: string;
     options?: ILoginPropOptionsInfo;
 }
 
 interface ILoginState extends ILoginRequestInfo {
-    error?: string;
+    error: string;
     loading?: string;
+    errorStale: boolean;
 }
 
 class Login extends React.Component<ILoginProps> {
@@ -38,17 +39,17 @@ class Login extends React.Component<ILoginProps> {
         password: '',
         rememberMe: false,
         error: this.props.error,
+        errorStale: true, 
         loading: undefined
     }
     render () {
         const {options, onForgotPassword} = this.props;
- 
         return (
             <form onSubmit={e => this.handleFormSubmit(e)} className='loginWrapper' data-test="loginForm">
                 <div className="loginForm">
                     <div className="loginForm__container" data-test="login">
                         <div data-test={'formHeadingLabel'} className="loginForm__container--heading">{options?.formHeadingLabel || 'Login'}</div>
-                        {(this.state.error && !this.state.loading) && 
+                        {(this.state.error && !this.state.errorStale && !this.state.loading) && 
                         <div className="loginForm__container--error">
                             <span data-test="error">{this.state.error}</span>
                         </div>
@@ -121,11 +122,12 @@ class Login extends React.Component<ILoginProps> {
         const {user, password, rememberMe} = this.state;
         const {onLogin, options} = this.props;
 
-        const update: any = {loading: options?.loadingMsg || 'Please wait...'}
+        const update: any = {loading: options?.loadingMsg || 'Please wait...', error: ''}
 
         if(!user || !password || (password && password.length < 6)) {
             update.error = 'Error! Login failed. Invalid user email or password is passed.';
             update.loading = undefined;
+            update.errorStale = false;
             this.setState({...update});
             return;
         }
@@ -140,7 +142,15 @@ class Login extends React.Component<ILoginProps> {
     }
 
     private clearForm = () => {
-        this.setState({error: undefined, loading: undefined})
+        this.setState({errorStale: true, loading: undefined})
+    }
+
+    static getDerivedStateFromProps = (props: ILoginProps, state: ILoginState) => {
+        if(props.error !== state.error && state.loading) {
+            return {...state, error: props.error, loading: undefined, errorStale: false}
+        }
+
+        return null;
     }
 }
 
