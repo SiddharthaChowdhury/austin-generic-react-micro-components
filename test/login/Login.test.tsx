@@ -34,7 +34,7 @@ describe('Login component are rendered correctly', () => {
 describe('Login prop change test', () => {
     it('Error is passed in props, should display error', () => {
         const errorMessage = 'Some error found';
-        const wrapper = setup({error: errorMessage});
+        const wrapper = setup({error: errorMessage}, {errorStale: false});
         const element = getElementByTestAttr(wrapper, 'error');
 
         expect(element.length).toBe(1);
