@@ -14,6 +14,7 @@ export interface ILoginPropOptionsInfo {
     formHeadingLabel?: string;
     userLabel?: string;
     passwordLabel?: string;
+    passwordAutoComplete?: 'current-password' | 'new-password'
     forgotPassLabel?: string;
     btnLabel?: string;
     loadingMsg?: string;
@@ -75,7 +76,8 @@ class Login extends React.Component<ILoginProps> {
                             <label>{options?.passwordLabel || 'Password:'}</label>
                             <InputText 
                                 isDisabled={!!this.state.loading}
-                                type="password" 
+                                type="password"
+                                autoComplete={options?.passwordAutoComplete || "current-password"}
                                 className="loginForm__container--formGroup-input" 
                                 value={this.state.password} 
                                 onChange={(e: any) => this.setState({password: e.target.value})}
