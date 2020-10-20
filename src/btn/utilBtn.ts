@@ -1,6 +1,5 @@
 import { IdBtnColor } from "./IdBtnColor";
 
-
 class UtilBtn {
     public getColorClass = (color?: IdBtnColor, solid?: boolean): string => {
         let classNames = 'btn ';
