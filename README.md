@@ -4,7 +4,7 @@
 
 1. `Avatar`
 2. `Btn`
-3. `DatePicker`
+3. `DatePicker` note implemented using [react-datepicker](https://www.npmjs.com/package/react-datepicker) npm packages [DOCS here](https://reactdatepicker.com/)
 4. `TimePicker`
 5. `Dropdown` Select (multiselect using chips/tags)
 6. `AsyncDropdown` Select fetch options async (multiselect using chips/tags)
