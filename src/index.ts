@@ -9,6 +9,7 @@ import {IDropdownOption, IDropdownOptionDataAttr} from "./dropdown/IDropdown";
 import Dropdown from "./dropdown/Dropdown";
 import AsyncDropdown from "./dropdown/AsyncDropdown";
 import TimePicker from "./timePicker/TimePicker";
+import DatePicker2 from "./datePicker/DatePicker";
 
 export {
     InputText, 
@@ -33,4 +34,5 @@ export {
     AsyncDropdown,
 
     TimePicker,
+    DatePicker2
 }
