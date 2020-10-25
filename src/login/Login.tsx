@@ -61,20 +61,23 @@ class Login extends React.Component<ILoginProps> {
                         </div>
                         }
                         <div className="loginForm__container--formGroup">
-                            <label>{options?.userLabel || 'Your email address:'}</label>
-                            <InputText
-                                type="text"
-                                isDisabled={!!this.state.loading}
-                                className="loginForm__container--formGroup-input" 
-                                value={this.state.user} 
-                                onChange={(e: any) => this.setState({user: e.target.value})}
-                                onFocus={this.clearForm}
-                                data-test="input" 
-                            />
+                            <label>
+                                {options?.userLabel || 'Your email address:'}
+                                <InputText
+                                    type="text"
+                                    isDisabled={!!this.state.loading}
+                                    className="loginForm__container--formGroup-input" 
+                                    value={this.state.user} 
+                                    onChange={(e: any) => this.setState({user: e.target.value})}
+                                    onFocus={this.clearForm}
+                                    data-test="input"
+                                />
+                            </label>
                         </div>
                         <div className="loginForm__container--formGroup">
-                            <label>{options?.passwordLabel || 'Password:'}</label>
-                            <InputText 
+                            <label>
+                                {options?.passwordLabel || 'Password:'}
+                                <InputText 
                                 isDisabled={!!this.state.loading}
                                 type="password"
                                 autoComplete={options?.passwordAutoComplete || "current-password"}
@@ -84,17 +87,20 @@ class Login extends React.Component<ILoginProps> {
                                 onFocus={this.clearForm}
                                 data-test="input" 
                             />
+                            </label>
                         </div>
                         <div className="loginForm__container--formGroup">
-                            <input 
-                                disabled={!!this.state.loading}
-                                type="checkbox" 
-                                className="form-control" 
-                                checked={this.state.rememberMe} 
-                                onChange={(e: any) => this.setState({rememberMe: e.target.checked})} 
-                                data-test="input"
-                            />
-                            <label> {options?.forgotPassLabel || 'Remember me'}</label>
+                            <label> 
+                                <input 
+                                    disabled={!!this.state.loading}
+                                    type="checkbox" 
+                                    className="form-control" 
+                                    checked={this.state.rememberMe} 
+                                    onChange={(e: any) => this.setState({rememberMe: e.target.checked})} 
+                                    data-test="input"
+                                />
+                                {options?.forgotPassLabel || 'Remember me'}
+                            </label>
                         </div>
                         <div className="loginForm__container--btnContainer">
                             <Btn 
