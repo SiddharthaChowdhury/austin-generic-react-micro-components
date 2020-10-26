@@ -31,6 +31,8 @@ const Avatar: React.FC<IAvatarProps> = ({height, src, fallBackSrc, ...rest}) => 
             }
 
             img.src = src;
+        } else {
+            setSrc(src);
         }
     }, [])
 
