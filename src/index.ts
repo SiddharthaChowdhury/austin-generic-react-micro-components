@@ -4,7 +4,7 @@ import Login , {ILoginRequestInfo, ILoginProps, ILoginPropOptionsInfo} from "./l
 import InputText from "./text/InputText";
 import Avatar from "./avatar/Avatar";
 import Loading from "./loading/Loading";
-import {Popup, IPopupProps} from "./popup/Popup";
+import {Popup, IPopupProps, IdPopupAlign} from "./popup/Popup";
 import {IDropdownOption, IDropdownOptionDataAttr} from "./dropdown/IDropdown";
 import Dropdown from "./dropdown/Dropdown";
 import AsyncDropdown from "./dropdown/AsyncDropdown";
@@ -27,6 +27,7 @@ export {
 
     IPopupProps,
     Popup,
+    IdPopupAlign,
 
     IDropdownOption,
     IDropdownOptionDataAttr,
