@@ -7,38 +7,48 @@ interface IAvatarProps {
     [key: string]: any;
 }
 
-const Avatar: React.FC<IAvatarProps> = ({height, src, fallBackSrc, ...rest}) => {
-    const [imgOrigSrc, setSrc] = React.useState<string>();
+interface IAvatarState {
+  origSrc: string;
+}
 
-    const square = `${height || 50}px`;
-    const style: React.CSSProperties = {
-        backgroundImage: `url(${imgOrigSrc})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: "contain",
-        height: square,
-        width: square,
-        borderRadius: '3px'
-    };
+class Avatar extends React.Component<IAvatarProps> {
+  readonly state: IAvatarState = {origSrc: ''};
 
-    React.useEffect(() => {
-        if(fallBackSrc) {
-            const img = new Image();
-            img.onload = function() {
-                setSrc(src);
-            }
-            img.onerror = function() {
-                setSrc(fallBackSrc);
-            }
+  componentDidMount() {
+    const {fallBackSrc, src} = this.props;
+    const self = this;
 
-            img.src = src;
-        } else {
-            setSrc(src);
+    if(fallBackSrc) {
+        const img = new Image();
+        img.onload = function() {
+            self.setState({origSrc: src})
         }
-    }, [])
+        img.onerror = function() {
+            self.setState({origSrc: fallBackSrc})
+        }
+
+        img.src = src;
+    } else {
+        this.setState({origSrc: src})
+    }
+  }
+
+  render () {
+    const {origSrc} = this.state;
+    const {height, src, fallBackSrc, ...rest} = this.props;
+    const square = `${height || 50}px`;
 
     return (
-        <div style={style} {...rest}/>
+      <div style={{
+          backgroundImage: `url(${origSrc})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: "contain",
+          height: square,
+          width: square,
+          borderRadius: '3px'
+      }} {...rest}/>
     );
-};
+  }
+}
 
 export default Avatar;

@@ -10,8 +10,6 @@ interface IDropdownOwnState {
     open?: boolean;
 }
 interface IDropdownProps {
-    // initialOptions?: IDropdownOption[]; // options
-    // promise: (input: string) => Promise<IDropdownOption[]>;
     options: IDropdownOption[];
     onChange?(selection: IDropdownOption[]): any;
     selected?: IDropdownOption[];

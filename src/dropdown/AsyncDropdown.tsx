@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
 import "./asyncDropdown.scss";
 import { IDropdownOption } from "./IDropdown";
-import Avatar from "../avatar/Avatar";
 import Loading from "../loading/Loading";
 import { debounce } from "../util/utilBrowser";
+import Avatar from "../avatar/Avatar";
 
 interface IAsyncDropdownOwnState {
     typedValue: string;
@@ -29,7 +29,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
 
     private refSuggestionContainer = React.createRef<any>();
     private refInput = React.createRef<any>();
-    
+
     private timerHandleSuggestionPosition: number | null = null;
     private timerHandleInputWidth: number | null = null;
     private timerHandleSafeSuggestionClose: number | null = null;
@@ -40,7 +40,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
     render() {
         const {typedValue, stateSelected, open, newOptions} = this.state;
         const {isMulti, placeholder, isDisabled, initialOptions} = this.props;
-        const pholder = stateSelected 
+        const pholder = stateSelected
             ? !isMulti ? (stateSelected[0] ? stateSelected[0].label : placeholder || '') : placeholder || ''
             : this.props.selected ? (this.props.selected[0] ? this.props.selected[0].label : placeholder || '') : placeholder || '';
 
@@ -51,23 +51,32 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                 {((stateSelected && stateSelected.length > 0) && isMulti) &&
                 <div className={'asyncDrpDwn821__multiTagContainer'}>
                     {stateSelected.map((sItem: IDropdownOption, _key: number) => {
+                        const {label, color, avatar} = sItem;
+
                         return (
                             <div
-                                title={`REMOVE - ${sItem.label}`}
+                                title={`REMOVE - ${label}`}
                                 key={_key}
                                 className={'asyncDrpDwn821__multiTagContainer--item'}
                                 onClick={() => this.removeTag(sItem)}
                                 style={{
-                                    backgroundColor: sItem.color ? sItem.color[0] : '#f3f3f3',
-                                    color: sItem.color ? sItem.color[1] : '#000',
-                                    border: `1px solid ${sItem.color ? sItem.color[0] : '#f3f3f3'}`
+                                    backgroundColor: color ? color[0] : '#f3f3f3',
+                                    color: color ? color[1] : '#000',
+                                    border: `1px solid ${color ? color[0] : '#f3f3f3'}`
                                 }}
 
                             >
-                                <span>{sItem.label.replace(' ', '_')}</span>
+                                {avatar && 
+                                    <Avatar 
+                                        src={avatar} 
+                                        height={17}
+                                        className="asyncDrpDwn821__multiTagContainer--item-avatar"
+                                    />
+                                }
+                                <span>{label.replace(' ', '_')}</span>
                                 <span
                                     className="asyncDrpDwn821__multiTagContainer--item-close"
-                                    style={{color: sItem.color ? sItem.color[1] || '#3d3d3d' : '#3d3d3d'}}
+                                    style={{color: color ? color[1] || '#3d3d3d' : '#3d3d3d'}}
                                 >
                                     &times;
                                 </span>
@@ -78,11 +87,11 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                 </div>
                 }
 
-                <input type={'text'} 
+                <input type={'text'}
                     ref={this.refInput}
                     title={isNoOptions ? 'No items': ''}
-                    className={'asyncDrpDwn821__input'} 
-                    value={typedValue} 
+                    className={'asyncDrpDwn821__input asyncDrpDwn821-js-common'}
+                    value={typedValue}
                     onChange={this.handleInputChange}
                     onKeyUp={() => this.debouncedInput()}
                     placeholder={pholder}
@@ -90,19 +99,18 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                     disabled={!!isDisabled}
                     style={isNoOptions ? {backgroundColor: '#eeeeee'} : {}}
                 />
-                {typedValue && 
-                    <span className={'asyncDrpDwn821__clearTextIcon'} 
+                {typedValue &&
+                    <span className={'asyncDrpDwn821__clearTextIcon'}
                         onClick={() => {
                             this.setState({typedValue: ''});
-                            // utilBrowser.placeCaretAtEnd(this.refInput.current)
                         }}
                     >
                         &times;
                     </span>
                 }
-            
-                {open && 
-                    <div 
+
+                {open &&
+                    <div
                         className={'asyncDrpDwn821_Overlay'}
                         onClick={(e: any) => {
                             if(e.target) {
@@ -110,7 +118,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                                     return;
                                 }
                                 this.setState({open: false, isLoading: false, newOptions: undefined})
-                            }                            
+                            }
                         }}
                     >
                         <div className={'asyncDrpDwn821__suggestions'} ref={this.refSuggestionContainer}>
@@ -123,12 +131,16 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                                 this.safeSuggestionClose(true);
                                 return null;
                             })()}
-                            
+
                         </div>
                     </div>
                 }
             </div>
         );
+    }
+
+    componentDidMount() {
+      document.body.addEventListener('click', this.detectDocumentClicks);
     }
 
     componentWillUnmount() {
@@ -142,6 +154,22 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
         if(this.timerHandleSafeSuggestionClose) {
             clearTimeout(this.timerHandleSafeSuggestionClose)
         }
+
+        document.body.removeEventListener('click', this.detectDocumentClicks);
+    }
+
+    private detectDocumentClicks = (e: any) => {
+      if(e && e.target) {
+        const {target} = e;
+        const classes: string = target.getAttribute('class') || '';
+        const itemClass = 'asyncDrpDwn821-js-common';
+        const parentClasses: string = target.parentElement ? target.parentElement.getAttribute('class') || '' : '';
+
+        if(!classes.includes(itemClass) && !parentClasses.includes(itemClass) && this.state.open) {
+          console.log('EXECUTING THIS')
+          this.setState({open: false, isLoading: false, newOptions: undefined});
+        }
+      }
     }
 
     private triggerSearch = () => {
@@ -158,7 +186,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
     private removeTag = (itemToRemove: IDropdownOption) => {
         const {stateSelected} = this.state;
         if(stateSelected && stateSelected.length >= 0) {
-            
+
             const index: number = stateSelected.findIndex((item: IDropdownOption) => item.value.toString() === itemToRemove.value.toString());
 
             if(index !== undefined) {
@@ -216,11 +244,11 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
         this.timerHandleSuggestionPosition = setTimeout(() => {
             const suggestionContainer: HTMLElement = this.refSuggestionContainer.current;
 
-            if(suggestionContainer) {   
+            if(suggestionContainer) {
                 const ipRect: DOMRect =  this.refInput.current.getBoundingClientRect();
-                suggestionContainer.setAttribute('style', `top: ${ipRect.bottom + 5}px; left: ${ipRect.left}px; width: ${ipRect.width}px; visibility: visible;`);
+                suggestionContainer.setAttribute('style', `top: ${ipRect.height + 5}px; left: ${ipRect.left}px; width: ${ipRect.width}px; visibility: visible;`);
             }
-        })  
+        })
     }
 
     private getListContent = () => {
@@ -249,17 +277,23 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
         }
 
         const getItemFromListItem = (options: IDropdownOption[]) => {
-            const uniqueList: IDropdownOption[] | undefined = (stateSelected && stateSelected.length > 0) 
+            const uniqueList: IDropdownOption[] | undefined = (stateSelected && stateSelected.length > 0)
                                                         ? this.deriveUniqueList(options, stateSelected )
                                                         : options;
             if(!uniqueList)  {
                 return [];
-            }                                                       
+            }
+
             return uniqueList.map((item: IDropdownOption, _key: number) => {
-                const {label, avatar} = item;
+                const {label, avatar, color} = item;
 
                 return (
-                    <div key={_key} className={'asyncDrpDwn821__suggestions--item'} onClick={() => handleSuggestionItemClick(item)}>
+                    <div key={_key}
+                      className={'asyncDrpDwn821-js-common asyncDrpDwn821__suggestions--item'}
+                      onClick={() => handleSuggestionItemClick(item)}
+                      style={color && color[2] ? {backgroundColor: color[0], color: color[1]}: {}}
+
+                    >
                         {avatar && <Avatar src={avatar} height={17}/>}
                         <div className={'asyncDrpDwn821__suggestions--item-label'}>{label}</div>
                     </div>
@@ -276,7 +310,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                     </div>
                 )
             }
-    
+
             if (newOptions && newOptions.length > 0) {
                 return getItemFromListItem(newOptions);
             }
@@ -287,16 +321,16 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
                     </div>
                 )
             }
-    
-    
+
+
             if(initialOptions && initialOptions.length > 0) {
-                const uniqueList: IDropdownOption[] = (stateSelected && stateSelected.length > 0) 
+                const uniqueList: IDropdownOption[] = (stateSelected && stateSelected.length > 0)
                                                         ? this.deriveUniqueList(initialOptions, stateSelected )
                                                         : initialOptions;
 
                 return getItemFromListItem(uniqueList);
             }
-    
+
             return null;
         }
 
@@ -320,21 +354,21 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
 export default AsyncDropdown;
 
 /*
-    Core of dropdown 
+    Core of dropdown
     - Contains text input to filter/search
     - Drop
     - To be used in by Async and Sync dropdown wrapper
     - If promise is passed -> Async
     - Else -> Sync
 
-    initialOptions: 
+    initialOptions:
         -   Default list to show, before something is typed to search
         - [case : Async] Once searched the dropdownList will replaced by new content and the default list will not be displayed
         - [case : Sync] Once typed, the initialList will be filtered [using string pattern match]
         -   If the typed text is cleared, the dropdown list will then be relpaced back to options passed in "initialOptions"
 
     promise: [Async only]
-        - This determine if the current dropdown is Async or not
+        - This determines if the current dropdown is Async or not
         - To be used to fetch dropdownList asynchronously
         - Takes a function as input (see the defination in "IAsyncDropdownProps" interface)
         - This function is triggered every time input is changed
@@ -343,11 +377,11 @@ export default AsyncDropdown;
     debouneTime: [Async only]
         - Override the default debouneTime, which is 260ms, cannot be more than 1000ms
 
-    onChange: 
+    onChange:
         - handler to get selected option/s
         - if [isMulti: true] always returns full set of items selected in the dropdown
-    
-    selected: 
+
+    selected:
         - Default selection on render
         - Item must contain in "props.initialOptions"
 
@@ -360,8 +394,8 @@ export default AsyncDropdown;
 
     isDisabled:
         - if TRUE disables the dropdown
-    
-    placeholder: 
+
+    placeholder:
         - Default place holder when nothing is selected
         - Works if "props.selected" is undefined
 

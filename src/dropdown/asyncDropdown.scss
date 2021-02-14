@@ -20,9 +20,9 @@
         font-size: 13px;
         flex-wrap: wrap;
         padding-top: 1px;
-        
+
         &--item {
-            margin: 0 1.5px;
+            margin: 0 1.5px 1px 1.5px;
             border: 1px solid #3d3d3d;
             display: flex;
             align-items: center;
@@ -30,6 +30,10 @@
             border-radius: 3px;
             cursor: pointer;
             background-color: rgb(243, 243, 243);
+
+            &-avatar {
+                margin-right: 3px;
+            }
 
             &-close {
                 margin: 3px;
@@ -103,7 +107,7 @@
 
 .asyncDrpDwn821_Overlay{
     z-index: $ZindexDropdownOverlay;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
