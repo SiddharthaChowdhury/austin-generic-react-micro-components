@@ -246,7 +246,7 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
 
             if(suggestionContainer) {
                 const ipRect: DOMRect =  this.refInput.current.getBoundingClientRect();
-                suggestionContainer.setAttribute('style', `top: ${ipRect.height + 5}px; left: 0px; width: ${ipRect.width}px; visibility: visible;`);
+                suggestionContainer.setAttribute('style', `top: ${ipRect.height + 5}px; width: ${ipRect.width}px; visibility: visible;`);
             }
         })
     }
