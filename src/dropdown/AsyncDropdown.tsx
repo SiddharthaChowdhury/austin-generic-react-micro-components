@@ -161,14 +161,21 @@ class AsyncDropdown extends React.Component<IAsyncDropdownProps, IAsyncDropdownO
     private detectDocumentClicks = (e: any) => {
       if(e && e.target) {
         const {target} = e;
+        const suggestionContainer: HTMLElement = this.refSuggestionContainer.current;
         const classes: string = target.getAttribute('class') || '';
         const itemClass = 'asyncDrpDwn821-js-common';
         const parentClasses: string = target.parentElement ? target.parentElement.getAttribute('class') || '' : '';
 
-        if(!classes.includes(itemClass) && !parentClasses.includes(itemClass) && this.state.open) {
-          console.log('EXECUTING THIS')
-          this.setState({open: false, isLoading: false, newOptions: undefined});
+        if(suggestionContainer && !suggestionContainer.contains(target)) {
+            this.safeSuggestionClose();
+            return;
         }
+
+        // Close when somewhere outside dropdown environment is clicked
+        if(!classes.includes(itemClass) && !parentClasses.includes(itemClass) && this.state.open) {
+            this.safeSuggestionClose();
+        }
+
       }
     }
 
